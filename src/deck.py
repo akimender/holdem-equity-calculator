@@ -1,6 +1,6 @@
-from card import Card
-from hand import Hand
-from river import River
+from .card import Card
+from .hand import Hand
+from .river import River
 import random
 
 class Deck:

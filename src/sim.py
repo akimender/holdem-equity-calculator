@@ -1,7 +1,7 @@
-from card import Card
-from deck import Deck
-from hand import Hand
-from river import River
+from .card import Card
+from .deck import Deck
+from .hand import Hand
+from .river import River
 
 class Sim:
 
@@ -171,3 +171,9 @@ class Sim:
         elif test_one_pair() > -1:
             return test_one_pair()
         return test_high_card()
+    
+    def get_hand_1(self):
+        return self.hand_1
+    
+    def get_hand_2(self):
+        return self.hand_2

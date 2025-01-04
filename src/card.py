@@ -10,8 +10,8 @@ class Card:
         return self.suit
     
     def __str__(self):
-        print(self.rank, self.suit)
-
+        return f"{self.rank} of {self.suit}"
+    
     def __eq__(self, other):
         if isinstance(other, Card):
             return self.rank == other.rank and self.suit == other.suit
