@@ -1,12 +1,8 @@
 from card import Card
 
 class Hand:
-    cards = []
-
-    def __init__(self):
-        pass
-
-    def __init__(self, card_1: Card, card_2: Card):
+    def __init__(self, card_1: Card = None, card_2: Card = None):
+        self.cards = []
         self.add_card(card_1)
         self.add_card(card_2)
     

@@ -3,16 +3,14 @@ class Card:
         self.rank = rank
         self.suit = suit
     
-    def get_rank() -> int:
-        global rank
-        return rank
+    def get_rank(self) -> int:
+        return self.rank
     
-    def get_suit() -> str:
-        global suit
-        return suit
+    def get_suit(self) -> str:
+        return self.suit
     
-    def __str__():
-        print(rank, suit)
+    def __str__(self):
+        print(self.rank, self.suit)
 
     def __eq__(self, other):
         if isinstance(other, Card):

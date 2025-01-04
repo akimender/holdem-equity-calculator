@@ -18,6 +18,9 @@ class Sim:
         hand_1_score = self.evaluate_hand(self.hand_1, self.river)
         hand_2_score = self.evaluate_hand(self.hand_2, self.river)
 
+        print("hand 1 score", hand_1_score)
+        print("hand 2 score", hand_2_score)
+
         if hand_1_score > hand_2_score:
             print("Hand 1 wins!")
             return self.hand_1
@@ -27,8 +30,8 @@ class Sim:
         print("Tie!")
         return None
     
-    def evaluate_hand(hand: Hand, river: River) -> int: # returns range from 100 to 1000
-        cards = hand.get_cards + river.get_cards # cards should have 7 cards
+    def evaluate_hand(self, hand: Hand, river: River) -> int: # returns range from 100 to 1000
+        cards = hand.get_cards() + river.get_cards() # cards should have 7 cards
         
         ranks = []
         suits = []
@@ -60,7 +63,7 @@ class Sim:
                         if sorted_cards[i].get_rank() == sorted_cards[i - 1].get_rank() + 1 or (sorted_cards[i - 1].get_rank() == 13 and sorted_cards[i].get_rank() == 1):
                             consecutive_count += 1
                             if consecutive_count >= 5:
-                                return sorted_cards[i].get_rank()
+                                return 800 + sorted_cards[i].get_rank()
             return -1
 
         # returns highest integer if the ranks has a straight
@@ -73,7 +76,7 @@ class Sim:
                 if nums[i] == nums[i - 1] + 1 or (nums[i - 1] == 13 and nums[i] == 1):
                     consecutive_count += 1
                     if consecutive_count >= 5:  # If we find 5 consecutive numbers, return True
-                        return nums[i]
+                        return 400 + nums[i]
                 else:
                     consecutive_count = 1
             
@@ -97,7 +100,7 @@ class Sim:
                 for card in suit_dict[flush_suit]:
                     if card.get_rank() > max_rank:
                         max_rank = card.get_rank()
-                return max_rank
+                return 500 + max_rank
             else:
                 return -1
 
@@ -106,15 +109,7 @@ class Sim:
             quads = [rank for rank, count in rank_count.items() if count == 4]
 
             if quads:
-                return quads[0]
-            return -1
-        
-        def test_trips() -> int:
-            rank_count = {rank: ranks.count(rank) for rank in set(ranks)}
-            trips = [rank for rank, count in rank_count.items() if count == 3]
-
-            if trips:
-                return trips[0]
+                return 700 + quads[0]
             return -1
 
         def test_full_house() -> int:
@@ -125,9 +120,17 @@ class Sim:
             # scoring logic here doesnt tiebreak for matching three of a kind and mismatched two of a kind
             # NEEDS FIXING
             if three_of_kind and pairs:
-                return three_of_kind[0]
+                return 600 + three_of_kind[0]
             elif len(three_of_kind) > 1:
-                return max(three_of_kind)
+                return 600 + max(three_of_kind)
+            return -1
+        
+        def test_trips() -> int:
+            rank_count = {rank: ranks.count(rank) for rank in set(ranks)}
+            trips = [rank for rank, count in rank_count.items() if count == 3]
+
+            if trips:
+                return 300 + trips[0]
             return -1
 
         def test_two_pair() -> int:
@@ -135,7 +138,7 @@ class Sim:
             pairs = [rank for rank, count in rank_count.items() if count == 2]
 
             if len(pairs) >= 2:
-                return max(pairs)
+                return 200 + max(pairs)
             return -1
 
         def test_one_pair() -> int:
@@ -143,7 +146,7 @@ class Sim:
             pairs = [rank for rank, count in rank_count.items() if count == 2]
 
             if pairs:
-                return max(pairs)
+                return 100 + max(pairs)
             return -1
 
         def test_high_card() -> int:

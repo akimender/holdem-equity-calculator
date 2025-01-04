@@ -4,9 +4,8 @@ from river import River
 import random
 
 class Deck:
-    cards = []
-
     def __init__(self):
+        self.cards = []
         self.generate_new_deck()
 
     # sets cards to a new shuffled Deck of cards
