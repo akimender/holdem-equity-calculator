@@ -1,7 +1,7 @@
-from .card import Card
-from .deck import Deck
-from .hand import Hand
-from .river import River
+from card import Card
+from deck import Deck
+from hand import Hand
+from river import River
 
 class Sim:
 
@@ -177,3 +177,9 @@ class Sim:
     
     def get_hand_2(self):
         return self.hand_2
+    
+    def get_river(self):
+        return self.river
+    
+    def get_deck(self):
+        return self.deck

@@ -1,11 +1,12 @@
-from .card import Card
-from .hand import Hand
-from .river import River
+from card import Card
+from hand import Hand
+from river import River
 import random
+import copy
 
 class Deck:
-    def __init__(self):
-        self.cards = []
+    def __init__(self, cards=None):
+        self.cards = cards if cards is not None else []
         self.generate_new_deck()
 
     # sets cards to a new shuffled Deck of cards
@@ -18,7 +19,7 @@ class Deck:
             self.cards.append(Card(i, "Hearts"))
         random.shuffle(self.cards)
 
-    def get_card(self) -> Card:
+    def pop_card(self) -> Card:
         return self.cards.pop()
     
     def add_card(self, card: Card):
@@ -36,4 +37,17 @@ class Deck:
     
     def remove_river_cards(self, river: River):
         for card in river.get_cards():
-            self.cards.remove(card)
+            if card in self.cards:
+                self.cards.remove(card)
+
+    def shuffle_cards(self):
+        random.shuffle(self.cards)
+        return self
+
+    def get_shuffled(self):
+        deck = Deck(self.cards)
+        return deck.shuffle_cards()
+    
+    def get_shuffled_copy(self):
+        deep_copy = copy.deepcopy(self).get_shuffled()
+        return deep_copy
